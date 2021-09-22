@@ -57,6 +57,16 @@ Nous tenterons tout de même d'avancer le plus possible mais sans les noeuds ins
 
 ## Creating a wallet and depositing tBTC in it 
 
+Nous avons essayé différent manières de créer un wallet electrum sur la machine virtuelle mais sans succès.
+
+### Via Rust
+
+Nous avons essayer de créer un wallet Electrum comme sur le tutoriel, mais sans succès. Le tutorielle proposait d'installer premièrement Rust en utilisant le code source,ce que nous avons éssayé mais que nous avons pas réussi. Etant donné que nous travaillons pas éxactement sur le même environnement nous avons choisi à la place d'installer Rust avec la commande `sudo apt install rustc`, ce qui a fonctionné. En revanche nous ne sommes pas parvenu à intsaller Electr et nous n'avons donc pas pu installer le server Electrum pour pouvoir y connecter de Wallet Electrum.
+
+### Via Python 
+
+Nous avons ensuite tenté d'installer Electrum en passant par python mais également sans succès.
+
 ## Installing LND
 
 Pour cette étape nous n'avons rien fais de particulier à part suivre le tutoriel, seulement le fichier récupéré est le suivant *'lnd-linux-amd64-v0.13.1-beta.tar.gz'* et non l'ARM pour les même raison que précedemment.
