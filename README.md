@@ -49,11 +49,9 @@ ExecStart=/usr/local/bin/bitcoind -testnet \
 
 La version testnet ne se lançant pas correctement, on retire alors ce paramètre et on active le service. La prochaine fois au redémarrage on peut vérifier que le service s'est bien éxécuter en daemon avec ```systemctl status bitcoind.service``` et surveiller l'avancement avec ```sudo tail -f /mnt/ext/bitcoin/debug.log```
 
-![tail debug log](Readme_Images/tail_bitcoind.PNG)
+![tail debug log](Readme_Images/tail_and_disk_space_too_low.png)
 
 Malheureusement à nouveau après quelques minutes une erreur *'Disk space is too low'* intervient et il est impossible de continuer.
-
-![disk space low](Readme_Images/disk_space_too_low.PNG)
 
 Nous tenterons tout de même d'avancer le plus possible mais sans les noeuds installés nous seront limités en tâches.
 
