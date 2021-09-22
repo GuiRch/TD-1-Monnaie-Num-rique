@@ -51,9 +51,11 @@ La version testnet ne se lançant pas correctement, on retire alors ce paramètr
 
 ![tail debug log](Readme_Images/tail_bitcoind.PNG)
 
-Malheureusement à nouveau après quelques minutes une erreur *'Disk space is too low'* intervient et il est impossible de continuer. Nous tenterons tout de même d'avancer le plus possible mais sans tous les noeuds installés nous seront limités en tâches.
+Malheureusement à nouveau après quelques minutes une erreur *'Disk space is too low'* intervient et il est impossible de continuer.
 
 ![disk space low](Readme_Images/disk_space_too_low.PNG)
+
+Nous tenterons tout de même d'avancer le plus possible mais sans les noeuds installés nous seront limités en tâches.
 
 ## Creating a wallet and depositing tBTC in it 
 
