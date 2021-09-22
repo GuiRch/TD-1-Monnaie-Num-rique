@@ -59,7 +59,43 @@ Nous tenterons tout de même d'avancer le plus possible mais sans les noeuds ins
 
 ## Installing LND
 
+Pour cette étape nous n'avons rien fais de particulier à part suivre le tutoriel, seulement le fichier récupéré est le suivant *'lnd-linux-amd64-v0.13.1-beta.tar.gz'* et non l'ARM pour les même raison que précedemment.
+
+```
+$ cd /tmp
+$ wget https://github.com/lightningnetwork/lnd/releases/download/v0.13.1-beta/lnd-linux-amd64-v0.13.1-beta.tar.gz
+$ wget https://github.com/lightningnetwork/lnd/releases/download/v0.13.1-beta/manifest-v0.13.1-beta.txt
+$ wget https://github.com/lightningnetwork/lnd/releases/download/v0.13.1-beta/manifest-roasbeef-v0.13.1-beta.sig
+$ wget -O roasbeef.asc https://keybase.io/roasbeef/pgp_keys.asc
+
+$ sha256sum --check manifest-v0.13.1-beta.txt --ignore-missing
+> lnd-linux-armv7-v0.13.1-beta.tar.gz: OK
+
+$ gpg ./roasbeef.asc
+> pub rsa4096 2019-10-13 [C] E4D85299674B2D31FAA1892E372CBD7633C61696
+> uid Olaoluwa Osuntokun <laolu32@gmail.com>
+
+$ gpg --import ./roasbeef.asc
+$ gpg --verify manifest-roasbeef-v0.13.1-beta.sig manifest-v0.13.1-beta.txt
+>gpg: Signature made Mon 19 Jul 2021 22:41:37 BST
+>gpg:                using RSA key 60A1FA7DA5BFF08BDCBBE7903BBD59E99B280306
+>gpg: Good signature from "Olaoluwa Osuntokun <laolu32@gmail.com>" [unknown]
+>gpg: WARNING: This key is not certified with a trusted signature!
+>gpg:          There is no indication that the signature belongs to the owner.
+>Primary key fingerprint: E4D8 5299 674B 2D31 FAA1  892E 372C BD76 33C6 1696
+>     Subkey fingerprint: 60A1 FA7D A5BF F08B DCBB  E790 3BBD 59E9 9B28 0306
+
+$ tar -xzf lnd-linux-armv7-v0.13.1-beta.tar.gz
+$ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-armv7-v0.13.1-beta/*
+$ lnd --version
+> lnd version 0.13.1 commit=v0.13.1-beta
+```
+
 ## Turning LND into a service
+
+Après avoir suivi toutes les étapes et crée le fichier *'lnd.conf'* lancer LND. Dans l'attente et pour pouvoir continuer on doit ouvrir une nouvelle console et créer un wallet avec ```lncli create```, on entrer notre mot de passe et demande à générer une seed que l'on prend bien soin de noter. C'est à ce moment la que l'on reçoit une erreur *'unable to create chain control'* qui nous empêche d'aller plus loin (probablement lié au fait que les noeuds ne soit pas dans la machine) :
+
+![tail debug log](Readme_Images/unable_create_chain_control.PNG)
 
 ## Opening a lightning channel
 
