@@ -111,4 +111,43 @@ Après avoir suivi toutes les étapes et crée le fichier *'lnd.conf'* lancer LN
 
 ## Setting up Tor
 
+Préalablement avant de lancer les installations et faire tourner les noeuds bitcoin et lightning on souhaiterais faire tourner Tor sur notre machine afin d'éviter d'afficher à tout le monde notre adresse ip réelle. Tor nous permet en effet de faire cela en passant par une liste de noeuds Tor dont le chemin est aléatoire et chaque noeud ne peut connaitre que le noeud précédent et le suivant mais pas toute la route.
+
+L'installation de Tor est assez simple, on commence par écrire les lignes nécessaires dans le fichier *sources.list*, on vérifie par la suite l'intégrité des fichiers Tor en téléchargeant et ajoutant la clé signé du projet Tor
+
+```
+$ sudo nano /etc/apt/sources.list
+```
+
+```
+deb https://deb.torproject.org/torproject.org buster main
+deb-src https://deb.torproject.org/torproject.org buster main
+```
+
+```
+$ sudo apt install dirmngr apt-transport-https
+$ curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --import
+$ gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
+```
+
+On peut enfin installer la dernière version de Tor.
+
+Puis ne devons nous assurer que l'utilisateur "bitcoin" appartient bien au groupe "debian-tor".
+
+```
+$ sudo adduser bitcoin debian-tor
+$ cat /etc/group | grep debian-tor
+```
+
+Avant de redémarrer Tor pour appliquer les modifications on modifie un fichier de configuration ``sudo nano /etc/tor/torrc`` en ajoutant les lignes suivantes.
+
+```
+# à décommenter:
+ControlPort 9051
+CookieAuthentication 1
+
+# à ajouter:
+CookieAuthFileGroupReadable 1
+```
+
 ## Running your own BTC explorer
