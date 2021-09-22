@@ -31,7 +31,29 @@ L'installation de fail2Ban se fait facilement avec la commande `sudo apt install
 
 Lors de l'installation de BitcoinD il est préférable de vérifier la checksum des fichiers téléchargé pour vérifier l'intégrité de ce que l'on vient de télécharger, mais étant donné que nous utilisons une vm pour quelques jours seulement et sans y mettre d'argent réel, nous avons passé cette étape de sécurité.
 
-## Turning BitcoinD into a service 
+Là encore pour encore pour l'installation nous avons tout simplement suivis les commandes du tutoriel donné, cependant au lieu de sélectionner la version ARM 21.1 de Bitcoin Core nous avons pris la version 22.0 Linux (https://bitcoincore.org/bin/bitcoin-core-22.0/bitcoin-22.0-x86_64-linux-gnu.tar.gz) étant donné que l'ARM est supporté par la Raspberry.
+
+## Turning BitcoinD into a service
+
+Une fois BitcoinD installé changer d'utilisateur ```sudo - su bitcoin``` (crée préalablement) et crée le fichier de configuration. Pour lancer BitcoinD en testnet écrire dans la console ```bitcoind -testnet```, une connexion s'effectue puis les blocs sont synchronisés. Toutefois on souhaiterais que bitcoind se lance automatiquement au démarrage, on crée alors le fichier *bitcoind.service* et on effectue un léger changement pour lancer en testnet.
+
+```
+...
+ExecStart=/usr/local/bin/bitcoind -testnet \ 
+                                  -daemon \
+                                  -pid=/run/bitcoind/bitcoind.pid \
+                                  -conf=/mnt/ext/bitcoin/bitcoin.conf \
+                                  -datadir=/mnt/ext/bitcoin
+...
+```
+
+La version testnet ne se lançant pas correctement, on retire alors ce paramètre et on active le service. La prochaine fois au redémarrage on peut vérifier que le service s'est bien éxécuter en daemon avec ```systemctl status bitcoind.service``` et surveiller l'avancement avec ```sudo tail -f /mnt/ext/bitcoin/debug.log```
+
+![tail debug log](Readme_Images/tail_bitcoind.PNG)
+
+Malheureusement à nouveau après quelques minutes une erreur *'Disk space is too low'* intervient et il est impossible de continuer. Nous tenterons tout de même d'avancer le plus possible mais sans tous les noeuds installés nous seront limités en tâches.
+
+![disk space low](Readme_Images/disk_space_too_low.PNG)
 
 ## Creating a wallet and depositing tBTC in it 
 
